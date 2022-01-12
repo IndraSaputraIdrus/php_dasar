@@ -5,6 +5,7 @@ require 'functions.php';
 $siswa = query("SELECT * FROM siswa");
 $no = 1;
 
+
 ?>
 
 
@@ -24,10 +25,7 @@ $no = 1;
       <tr>
          <th>#</th>
          <th>Gambar</th>
-         <th>NRP</th>
          <th>Nama</th>
-         <th>Email</th>
-         <th>Jurusan</th>
          <th>Aksi</th>
       </tr>
 
@@ -35,11 +33,8 @@ $no = 1;
          <tr>
             <td><?= $no++; ?></td>
             <td><img src="img/<?= $s['gambar']; ?>"></td>
-            <td><?= $s['nrp']; ?></td>
             <td><?= $s['nama']; ?></td>
-            <td><?= $s['email']; ?></td>
-            <td><?= $s['jurusan']; ?></td>
-            <td><a href="">Edit</a> | <a href="">delete</a></td>
+            <td><a href="pages/detail.php?id=<?= $s['id']; ?>">Detail</a></td>
          </tr>
       <?php endforeach; ?>
    </table>
