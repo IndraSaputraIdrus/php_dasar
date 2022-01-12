@@ -1,3 +1,13 @@
+<?php
+
+require 'functions.php';
+
+$siswa = query("SELECT * FROM siswa");
+$no = 1;
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +20,6 @@
 
 <body>
    <h3>Daftar Siswa</h3>
-
    <table border="1" cellpadding='10' cellspacing='0'>
       <tr>
          <th>#</th>
@@ -21,15 +30,18 @@
          <th>Jurusan</th>
          <th>Aksi</th>
       </tr>
-      <tr>
-         <td>1</td>
-         <td><img src=""></td>
-         <td>202000001</td>
-         <td>Indra Saputra Idrus</td>
-         <td>indrasaputraidrus@gmail.com</td>
-         <td>Rekayasa Perangkat Lunak</td>
-         <td><a href="">Edit</a> | <a href="">delete</a></td>
-      </tr>
+
+      <?php foreach ($siswa as $s) : ?>
+         <tr>
+            <td><?= $no++; ?></td>
+            <td><img src="img/<?= $s['gambar']; ?>"></td>
+            <td><?= $s['nrp']; ?></td>
+            <td><?= $s['nama']; ?></td>
+            <td><?= $s['email']; ?></td>
+            <td><?= $s['jurusan']; ?></td>
+            <td><a href="">Edit</a> | <a href="">delete</a></td>
+         </tr>
+      <?php endforeach; ?>
    </table>
 </body>
 
