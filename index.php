@@ -21,6 +21,8 @@ $no = 1;
 
 <body>
    <h3>Daftar Siswa</h3>
+   <a href="pages/insert.php">Tambah Data</a>
+   <br><br>
    <table border="1" cellpadding='10' cellspacing='0'>
       <tr>
          <th>#</th>

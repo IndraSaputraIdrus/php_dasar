@@ -29,3 +29,25 @@ function query($query)
    }
    return $rows;
 }
+
+function insert($post)
+{
+   $conn = koneksi();
+
+   $nama = htmlspecialchars($post['nama']);
+   $nrp = htmlspecialchars($post['nrp']);
+   $email = htmlspecialchars($post['email']);
+   $jurusan = htmlspecialchars($post['jurusan']);
+   $gambar = htmlspecialchars($post['gambar']);
+
+   if (!is_numeric($nrp)) {
+      return false;
+   }
+
+   $query = "INSERT INTO siswa VALUES (NULL, '$nama', '$nrp', '$email', '$jurusan', '$gambar')";
+   mysqli_query($conn, $query);
+
+   echo mysqli_error($conn);
+
+   return mysqli_affected_rows($conn);
+}
