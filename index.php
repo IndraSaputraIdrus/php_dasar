@@ -2,6 +2,10 @@
 
 require 'functions.php';
 
+if (!isset($_SESSION['login'])) {
+   header("Location: pages/login.php");
+}
+
 $siswa = query("SELECT * FROM siswa");
 $no = 1;
 
@@ -24,6 +28,8 @@ if (isset($_POST['cari'])) {
 
 <body>
    <h3>Daftar Siswa</h3>
+   <a href="pages/logout.php">Logout</a><br><br>
+
    <a href="pages/insert.php">Tambah Data</a>
    <br><br>
 

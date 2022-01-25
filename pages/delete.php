@@ -1,6 +1,10 @@
 <?php
 require_once "../functions.php";
 
+if (!isset($_SESSION['login'])) {
+   header("Location: login.php");
+}
+
 if (isset($_GET['id'])) {
    if (!$_GET['id']) {
       header("Location: ../index.php");

@@ -2,6 +2,11 @@
 
 include '../functions.php';
 
+if (!isset($_SESSION['login'])) {
+   header("Location: login.php");
+}
+
+
 if (isset($_POST['submit'])) {
    if (insert($_POST) > 0) {
       echo '<script>
