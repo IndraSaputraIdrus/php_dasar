@@ -34,36 +34,40 @@ if (isset($_POST['cari'])) {
    <br><br>
 
    <form action="" method="post">
-      <input type="text" name="keyword" size="35" autocomplete="off" autofocus placeholder="masukkan keyword pencarian">
-      <button type="submit" name="cari">Cari!</button>
+      <input class="keyword" type="text" name="keyword" size="35" autocomplete="off" autofocus placeholder="masukkan keyword pencarian">
+      <button type="submit" class="tombol-cari" name="cari">Cari!</button>
    </form>
 
    <br>
-   <table border="1" cellpadding='10' cellspacing='0'>
-      <tr>
-         <th>#</th>
-         <th>Gambar</th>
-         <th>Nama</th>
-         <th>Aksi</th>
-      </tr>
-
-      <?php if (empty($siswa)) : ?>
+   <div class="container">
+      <table border="1" cellpadding='10' cellspacing='0'>
          <tr>
-            <td colspan="4">
-               <p>Data Tidak Ditemukan!!!</p>
-            </td>
+            <th>#</th>
+            <th>Gambar</th>
+            <th>Nama</th>
+            <th>Aksi</th>
          </tr>
-      <?php endif; ?>
 
-      <?php foreach ($siswa as $s) : ?>
-         <tr>
-            <td><?= $no++; ?></td>
-            <td><img src="img/<?= $s['gambar']; ?>"></td>
-            <td><?= $s['nama']; ?></td>
-            <td><a href="pages/detail.php?id=<?= $s['id']; ?>">Detail</a></td>
-         </tr>
-      <?php endforeach; ?>
-   </table>
+         <?php if (empty($siswa)) : ?>
+            <tr>
+               <td colspan="4">
+                  <p>Data Tidak Ditemukan!!!</p>
+               </td>
+            </tr>
+         <?php endif; ?>
+
+         <?php foreach ($siswa as $s) : ?>
+            <tr>
+               <td><?= $no++; ?></td>
+               <td><img src="img/<?= $s['gambar']; ?>"></td>
+               <td><?= $s['nama']; ?></td>
+               <td><a href="pages/detail.php?id=<?= $s['id']; ?>">Detail</a></td>
+            </tr>
+         <?php endforeach; ?>
+      </table>
+   </div>
+
+   <script src="script.js"></script>
 </body>
 
 </html>
