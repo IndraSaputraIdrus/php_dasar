@@ -51,3 +51,40 @@ function insert($post)
 
    return mysqli_affected_rows($conn);
 }
+
+function hapus($id)
+{
+   $conn = koneksi();
+   mysqli_query($conn, "DELETE FROM siswa WHERE id = $id") or die(mysqli_error($conn));
+   return mysqli_affected_rows($conn);
+}
+
+function Edit($post)
+{
+   $conn = koneksi();
+
+   $nama = htmlspecialchars($post['nama']);
+   $nrp = htmlspecialchars($post['nrp']);
+   $email = htmlspecialchars($post['email']);
+   $jurusan = htmlspecialchars($post['jurusan']);
+   $gambar = htmlspecialchars($post['gambar']);
+   $id = htmlspecialchars($post['id']);
+
+   if (!is_numeric($nrp)) {
+      return false;
+   }
+
+   $query = "UPDATE siswa SET
+               nama = '$nama',
+               nrp = '$nrp',
+               email = '$email',
+               jurusan = '$jurusan',
+               gambar = '$gambar'
+            WHERE id = $id;
+            ";
+   mysqli_query($conn, $query);
+
+   echo mysqli_error($conn);
+
+   return mysqli_affected_rows($conn);
+}

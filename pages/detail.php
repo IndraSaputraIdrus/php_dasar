@@ -48,8 +48,11 @@ if (isset($_GET['id'])) {
 
          ?>
       </li>
-      <li><a href="ubah.php">Ubah</a> | <a href="../index.php">Kembali >></a></li>
+      <li><a href="edit.php?id=<?= $siswa['id']; ?>">Ubah</a> | <a id="del" href="delete.php?id=<?= $siswa['id']; ?>">Hapus</a></li>
+      <li><a href="../index.php">Kembali >></a></li>
    </ul>
 </body>
+
+<script src="../script.js"></script>
 
 </html>
