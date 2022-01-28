@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
 <body>
    <h3>Form Insert Data</h3>
 
-   <form action="" method="post">
+   <form action="" method="post" enctype="multipart/form-data">
       <ul>
          <li>
             <label> Nama :
@@ -63,8 +63,9 @@ if (isset($_POST['submit'])) {
          </li>
          <li>
             <label> Gambar :
-               <input required type="text" name="gambar">
+               <input type="file" name="gambar" class="gambar">
             </label>
+            <img src="../img/nophoto.png" width="120" style="display: block;" class="img-preview">
          </li>
          <li>
             <button type="submit" name="submit">insert</button>
@@ -72,6 +73,8 @@ if (isset($_POST['submit'])) {
          </li>
       </ul>
    </form>
+
+   <script src="../script.js"></script>
 </body>
 
 </html>

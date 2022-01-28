@@ -31,6 +31,60 @@ function query($query)
    return $rows;
 }
 
+function upload(){
+   $nama_file = $_FILES['gambar']['name'];
+   $tipe_file = $_FILES['gambar']['type'];
+   $ukuran_file = $_FILES['gambar']['size'];
+   $error = $_FILES['gambar']['error'];
+   $tmp_file = $_FILES['gambar']['tmp_name'];
+
+   // ketika tidak ada gambar di pilih
+   if ($error == 4) {
+     return 'nophoto.png'; 
+   }
+
+   // cek ekstensi file
+   $daftar_gambar = ["jpg", "jpeg", "png"];
+   $ekstensi_file = explode(".", $nama_file);
+   $ekstensi_file = strtolower(end($ekstensi_file));
+
+   if (!in_array($ekstensi_file, $daftar_gambar)) {
+      echo '
+      <script>
+         alert("Yang anda pilih bukan gambar");
+      </script>';
+      return false;
+   }
+
+   // cek tipe file
+   if ($tipe_file != "image/jpeg" && $tipe_file != "image/png") {
+         echo '
+      <script>
+         alert("Yang anda pilih bukan gambar");
+      </script>';
+      return false;
+   }
+
+   // cek ukuran file
+   // max 5mb == 5000000
+   if ($ukuran_file > 5000000) {
+         echo '
+      <script>
+         alert("Ukuran gambar terlalu besar");
+      </script>';
+      return false;
+   }
+
+   // lolos pengecekan siap upload file
+   // generate nama file baru
+   $nama_file_baru = uniqid();
+   $nama_file_baru .= ".";
+   $nama_file_baru .= $ekstensi_file;
+   move_uploaded_file($tmp_file, "../img/" . $nama_file_baru);
+
+   return $nama_file_baru;
+}
+
 function insert($post)
 {
    $conn = koneksi();
@@ -39,7 +93,14 @@ function insert($post)
    $nrp = htmlspecialchars($post['nrp']);
    $email = htmlspecialchars($post['email']);
    $jurusan = htmlspecialchars($post['jurusan']);
-   $gambar = htmlspecialchars($post['gambar']);
+   // $gambar = htmlspecialchars($post['gambar']);
+
+   // upload gambar
+   $gambar = upload();
+
+   if (!$gambar) {
+      return false;
+   }
 
    if (!is_numeric($nrp)) {
       return false;
@@ -56,7 +117,15 @@ function insert($post)
 function hapus($id)
 {
    $conn = koneksi();
+
+   // menghapus gambar di folder
+   $siswa = query("SELECT * FROM siswa WHERE id = $id");
+   if ($siswa['gambar'] != "nophoto.png") {
+      unlink("../img/" . $siswa['gambar']);   
+   }
+
    mysqli_query($conn, "DELETE FROM siswa WHERE id = $id") or die(mysqli_error($conn));
+
    return mysqli_affected_rows($conn);
 }
 
@@ -68,8 +137,22 @@ function Edit($post)
    $nrp = htmlspecialchars($post['nrp']);
    $email = htmlspecialchars($post['email']);
    $jurusan = htmlspecialchars($post['jurusan']);
-   $gambar = htmlspecialchars($post['gambar']);
+   $gambar_lama = htmlspecialchars($post['gambar_lama']);
    $id = htmlspecialchars($post['id']);
+
+   $gambar = upload();
+   if (!$gambar) {
+      return false; 
+   }
+
+   if ($gambar == "nophoto.png") {
+      $gambar = $gambar_lama;
+   } else if ($gambar_lama != $gambar && $gambar_lama != "nophoto.png") {
+      $siswa = query("SELECT * FROM siswa WHERE id = $id");
+      unlink("../img/" . $siswa['gambar']);
+   } {
+
+   }
 
    if (!is_numeric($nrp)) {
       return false;

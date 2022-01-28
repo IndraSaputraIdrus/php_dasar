@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
 <body>
    <h3>Form Edit Data</h3>
 
-   <form action="" method="post">
+   <form action="" method="post" enctype="multipart/form-data">
       <input type="hidden" name="id" value="<?= $siswa['id']; ?>">
       <ul>
          <li>
@@ -78,15 +78,19 @@ if (isset($_POST['submit'])) {
          </li>
          <li>
             <label> Gambar :
-               <input required type=" text" name="gambar" value="<?= $siswa['gambar']; ?>">
+               <input type="file" name="gambar" class="gambar">
+            <img src="../img/<?= $siswa['gambar'] ?>" width="120" style="display: block;" class="img-preview">
             </label>
          </li>
+         <input type="hidden" name="gambar_lama" value="<?= $siswa['gambar'] ?>">
          <li>
             <button type=" submit" name="submit">Edit</button>
             <button><a href="../index.php">Kembali << </a></button>
          </li>
       </ul>
    </form>
+
+   <script src="../script.js"></script>
 </body>
 
 </html>

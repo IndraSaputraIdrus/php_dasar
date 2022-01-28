@@ -59,7 +59,7 @@ if (isset($_POST['cari'])) {
          <?php foreach ($siswa as $s) : ?>
             <tr>
                <td><?= $no++; ?></td>
-               <td><img src="img/<?= $s['gambar']; ?>"></td>
+               <td><img src="img/<?= $s['gambar']; ?>" width='50'></td>
                <td><?= $s['nama']; ?></td>
                <td><a href="pages/detail.php?id=<?= $s['id']; ?>">Detail</a></td>
             </tr>
